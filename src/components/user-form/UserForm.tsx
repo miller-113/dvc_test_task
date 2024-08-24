@@ -39,14 +39,16 @@ function UserForm() {
   const [status, setStatus] = useState('')
   const [isChanged, setIsChanged] = useState(false)
 
-  useEffect(() => {
+  const setUsersData = () => {
     if (user) {
       setUserName(user.name)
       setCountry(user.country.value)
       setDepartment(user.department.value)
       setStatus(user.status.value)
     }
-  }, [user])
+  }
+
+  useEffect(setUsersData, [user])
 
   const iconComponent = (_props: any) => (
     <div style={{ position: 'relative' }}>
@@ -79,13 +81,36 @@ function UserForm() {
         break
     }
   }
-    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setIsChanged(true)
-      const { name, value } = e.target
-      if (name === 'name') {
-        setUserName(value as string)
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChanged(true)
+    const { name, value } = e.target
+    if (name === 'name') {
+      setUserName(value as string)
+    }
+  }
+  const handleUndoUsersData = () => {
+    setIsChanged(false)
+    setUsersData()
+  }
+
+const handleSaveUser = () => {
+  setIsChanged(false)
+
+  if (user) {
+    const userIndex = users.findIndex((_user) => _user.name === user.name)
+
+    if (userIndex !== -1) {
+      users[userIndex] = {
+        ...users[userIndex],
+        name: userName || user.name,
+        country: countries.find((c) => c.value === country) || user.country,
+        department:
+          departments.find((d) => d.value === department) || user.department,
+        status: statuses.find((s) => s.value === status) || user.status
       }
     }
+  }
+}
 
   return (
     <Box sx={styles.boxStyles}>
@@ -211,12 +236,22 @@ function UserForm() {
 
       <Box sx={styles.buttonContainerStyles}>
         <Button
-          sx={!isChanged ? styles.displayNone : { ...styles.saveButton, ...styles.undoButton }}
+          onClick={handleUndoUsersData}
+          sx={
+            !isChanged
+              ? styles.displayNone
+              : { ...styles.saveButton, ...styles.undoButton }
+          }
           variant='outlined'
         >
           Undo
         </Button>
-        <Button disabled={!isChanged} variant='text' sx={styles.saveButton}>
+        <Button
+          onClick={handleSaveUser}
+          disabled={!isChanged}
+          variant='text'
+          sx={styles.saveButton}
+        >
           Save
         </Button>
       </Box>
