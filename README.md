@@ -1,3 +1,16 @@
+
+# Task Create edit page
+- create header component in containers
+- add header layout
+- add buttons layout and styles
+- create edit page in pages
+- create userForm component in components
+- create page container(box with margin and padding)
+- create HOK for box container
+- added dummy user's data 
+- added user data states
+- added event handlers
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
