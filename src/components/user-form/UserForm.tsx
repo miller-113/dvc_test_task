@@ -114,16 +114,6 @@ const handleSaveUser = () => {
 
   return (
     <Box sx={styles.boxStyles}>
-      <Box sx={{ color: 'black' }}>
-        status {status}
-        <br />
-        fullname {userName}
-        <br />
-        department {department}
-        <br />
-        country {country}
-        <br />
-      </Box>
       <Grid item xs={12} md={6}>
         <InputLabel id='user-label' sx={styles.inputLabelStyles}>
           User
