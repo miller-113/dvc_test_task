@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   TextField,
   Select,
@@ -33,6 +33,20 @@ interface UserInterface {
 
 function UserForm() {
   const [user, setUser] = useState<UserInterface | ''>('')
+  const [userName, setUserName] = useState('')
+  const [country, setCountry] = useState('')
+  const [department, setDepartment] = useState('')
+  const [status, setStatus] = useState('')
+  const [isChanged, setIsChanged] = useState(false)
+
+  useEffect(() => {
+    if (user) {
+      setUserName(user.name)
+      setCountry(user.country.value)
+      setDepartment(user.department.value)
+      setStatus(user.status.value)
+    }
+  }, [user])
 
   const iconComponent = (_props: any) => (
     <div style={{ position: 'relative' }}>
@@ -48,8 +62,43 @@ function UserForm() {
     }
   }
 
+  const onSelectChange = (e: SelectChangeEvent<string>) => {
+    setIsChanged(true)
+    const { name, value } = e.target
+    switch (name) {
+      case 'country':
+        setCountry(value as string)
+        break
+      case 'department':
+        setDepartment(value as string)
+        break
+      case 'status':
+        setStatus(value as string)
+        break
+      default:
+        break
+    }
+  }
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setIsChanged(true)
+      const { name, value } = e.target
+      if (name === 'name') {
+        setUserName(value as string)
+      }
+    }
+
   return (
     <Box sx={styles.boxStyles}>
+      <Box sx={{ color: 'black' }}>
+        status {status}
+        <br />
+        fullname {userName}
+        <br />
+        department {department}
+        <br />
+        country {country}
+        <br />
+      </Box>
       <Grid item xs={12} md={6}>
         <InputLabel id='user-label' sx={styles.inputLabelStyles}>
           User
@@ -82,12 +131,14 @@ function UserForm() {
             Full Name
           </InputLabel>
           <TextField
+            name='name'
+            onChange={onInputChange}
             InputProps={{
               style: { height: '48px', borderRadius: 0 }
             }}
             variant='outlined'
             fullWidth
-            value={user ? user.name : ''}
+            value={userName}
           />
         </Grid>
 
@@ -97,13 +148,17 @@ function UserForm() {
           </InputLabel>
           <FormControl fullWidth>
             <Select
+              name='country'
               labelId='country-label'
-              value={user ? user.country.value : ''}
+              value={country}
               sx={styles.selectStyles}
+              onChange={onSelectChange}
               IconComponent={iconComponent}
             >
               {countries.map((_country) => (
-                <MenuItem value={_country.value}>{_country.name}</MenuItem>
+                <MenuItem key={_country.value} value={_country.value}>
+                  {_country.name}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -115,13 +170,15 @@ function UserForm() {
           </InputLabel>
           <FormControl fullWidth>
             <Select
+              name='department'
               labelId='department-label'
-              value={user ? user.department.value : ''}
+              value={department}
               sx={styles.selectStyles}
+              onChange={onSelectChange}
               IconComponent={iconComponent}
             >
               {departments.map((_department) => (
-                <MenuItem value={_department.value}>
+                <MenuItem key={_department.value} value={_department.value}>
                   {_department.name}
                 </MenuItem>
               ))}
@@ -135,13 +192,17 @@ function UserForm() {
           </InputLabel>
           <FormControl fullWidth>
             <Select
+              name='status'
               labelId='status-label'
-              value={user ? user.status.value : ''}
+              value={status}
               sx={styles.selectStyles}
               IconComponent={iconComponent}
+              onChange={onSelectChange}
             >
               {statuses.map((_status) => (
-                <MenuItem value={_status.value}>{_status.name}</MenuItem>
+                <MenuItem key={_status.value} value={_status.value}>
+                  {_status.name}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -150,12 +211,12 @@ function UserForm() {
 
       <Box sx={styles.buttonContainerStyles}>
         <Button
-          sx={{ ...styles.saveButton, ...styles.undoButton }}
+          sx={!isChanged ? styles.displayNone : { ...styles.saveButton, ...styles.undoButton }}
           variant='outlined'
         >
           Undo
         </Button>
-        <Button variant='text' sx={styles.saveButton}>
+        <Button disabled={!isChanged} variant='text' sx={styles.saveButton}>
           Save
         </Button>
       </Box>

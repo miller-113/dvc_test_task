@@ -65,5 +65,6 @@ export const styles = {
       outline: 0
     }
   },
-  undoButton: { width: '100px' }
+  undoButton: { width: '100px' },
+  displayNone: {display: 'none'}
 }
