@@ -140,7 +140,7 @@ const handleSaveUser = () => {
         User Information
       </Typography>
 
-      <Grid container spacing={2}>
+      <Grid container rowSpacing={'40px'} columnSpacing={'80px'}>
         <Grid item xs={12} md={6}>
           <InputLabel id='full-name-label' sx={styles.inputLabelStyles}>
             Full Name

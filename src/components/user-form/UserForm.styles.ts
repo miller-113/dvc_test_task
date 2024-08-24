@@ -1,6 +1,5 @@
 export const styles = {
   boxStyles: {
-    maxWidth: '800px',
     margin: 'auto',
     p: 0
   },
@@ -12,7 +11,7 @@ export const styles = {
     fontWeight: '400'
   },
   formControlStyles: {
-    width: 'calc(50% - 10px)'
+    width: 'calc(50% - 40px)'
   },
   selectStyles: {
     minWidth: '250px',
