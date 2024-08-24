@@ -1,4 +1,3 @@
-// styles.js
 export const styles = {
   boxStyles: {
     maxWidth: '800px',
@@ -9,7 +8,7 @@ export const styles = {
     mb: '4px',
     color: 'rgba(94, 98, 107, 1)',
     fontSize: '14px',
-    fontFamily: 'rubik',
+    fontFamily: 'Rubik, sans-serif',
     fontWeight: '400'
   },
   formControlStyles: {

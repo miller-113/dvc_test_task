@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   TextField,
   Select,
@@ -8,18 +8,46 @@ import {
   Box,
   Grid,
   Typography,
-  Button
+  Button,
+  SelectChangeEvent
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-
+import { users, statuses, departments, countries } from '~/dummyData'
 import { styles } from '~/components/user-form/UserForm.styles'
 
+interface UserInterface {
+  name: string
+  status: {
+    name: string
+    value: string
+  }
+  department: {
+    name: string
+    value: string
+  }
+  country: {
+    name: string
+    value: string
+  }
+}
+
 function UserForm() {
+  const [user, setUser] = useState<UserInterface | ''>('')
+
   const iconComponent = (_props: any) => (
     <div style={{ position: 'relative' }}>
       <ExpandMoreIcon {..._props} sx={styles.iconComponentStyles} />
     </div>
   )
+
+  const onUserChange = (e: SelectChangeEvent<string>) => {
+    const selectedUserName = e.target.value
+    const selectedUser = users.find((_user) => _user.name === selectedUserName)
+    if (selectedUser) {
+      setUser(selectedUser)
+    }
+  }
+
   return (
     <Box sx={styles.boxStyles}>
       <Grid item xs={12} md={6}>
@@ -30,12 +58,16 @@ function UserForm() {
           <Select
             labelId='user-label'
             defaultValue=''
+            value={user ? user.name : ''}
+            onChange={onUserChange}
             sx={styles.selectStyles}
             IconComponent={iconComponent}
           >
-            <MenuItem value='user1'>Oleg Schevchenko</MenuItem>
-            <MenuItem value='user2'>User 2</MenuItem>
-            <MenuItem value='user3'>User 3</MenuItem>
+            {users.map((_user) => (
+              <MenuItem key={_user.name} value={_user.name}>
+                {_user.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Grid>
@@ -55,7 +87,7 @@ function UserForm() {
             }}
             variant='outlined'
             fullWidth
-            defaultValue='Oleg Schevchenko'
+            value={user ? user.name : ''}
           />
         </Grid>
 
@@ -66,13 +98,13 @@ function UserForm() {
           <FormControl fullWidth>
             <Select
               labelId='country-label'
-              defaultValue='us'
+              value={user ? user.country.value : ''}
               sx={styles.selectStyles}
               IconComponent={iconComponent}
             >
-              <MenuItem value='us'>United States</MenuItem>
-              <MenuItem value='ca'>Canada</MenuItem>
-              <MenuItem value='uk'>United Kingdom</MenuItem>
+              {countries.map((_country) => (
+                <MenuItem value={_country.value}>{_country.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
@@ -84,13 +116,15 @@ function UserForm() {
           <FormControl fullWidth>
             <Select
               labelId='department-label'
-              defaultValue='Digital Marketing'
+              value={user ? user.department.value : ''}
               sx={styles.selectStyles}
               IconComponent={iconComponent}
             >
-              <MenuItem value='hr'>HR</MenuItem>
-              <MenuItem value='engineering'>Engineering</MenuItem>
-              <MenuItem value='marketing'>Marketing</MenuItem>
+              {departments.map((_department) => (
+                <MenuItem value={_department.value}>
+                  {_department.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
@@ -102,13 +136,13 @@ function UserForm() {
           <FormControl fullWidth>
             <Select
               labelId='status-label'
-              defaultValue='Active'
+              value={user ? user.status.value : ''}
               sx={styles.selectStyles}
               IconComponent={iconComponent}
             >
-              <MenuItem value='active'>Active</MenuItem>
-              <MenuItem value='inactive'>Inactive</MenuItem>
-              <MenuItem value='on-leave'>On Leave</MenuItem>
+              {statuses.map((_status) => (
+                <MenuItem value={_status.value}>{_status.name}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
