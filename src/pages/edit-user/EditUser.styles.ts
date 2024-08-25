@@ -6,7 +6,9 @@ export const styles = {
     lineHeight: '32px',
     fontWeight: '500',
     color: 'black',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Karla, sans-serif'
+    
   },
   container: {
     p: 0,
