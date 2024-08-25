@@ -162,7 +162,7 @@ const handleSaveUser = () => {
               value={country}
               sx={styles.selectStyles}
               onChange={onSelectChange}
-              IconComponent={iconComponent}
+              IconComponent={IconDropDown}
             >
               {countries.map((_country) => (
                 <MenuItem key={_country.value} value={_country.value}>
@@ -184,7 +184,7 @@ const handleSaveUser = () => {
               value={department}
               sx={styles.selectStyles}
               onChange={onSelectChange}
-              IconComponent={iconComponent}
+              IconComponent={IconDropDown}
             >
               {departments.map((_department) => (
                 <MenuItem key={_department.value} value={_department.value}>
@@ -205,7 +205,7 @@ const handleSaveUser = () => {
               labelId='status-label'
               value={status}
               sx={styles.selectStyles}
-              IconComponent={iconComponent}
+              IconComponent={IconDropDown}
               onChange={onSelectChange}
             >
               {statuses.map((_status) => (
