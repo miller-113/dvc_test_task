@@ -15,21 +15,7 @@ import { users, statuses, departments, countries } from '~/dummyData'
 import { styles } from '~/components/user-form/UserForm.styles'
 import IconDropDown from '../icon-dropdown/IconDropDown'
 
-interface UserInterface {
-  name: string
-  status: {
-    name: string
-    value: string
-  }
-  department: {
-    name: string
-    value: string
-  }
-  country: {
-    name: string
-    value: string
-  }
-}
+import { UserInterface } from '~/types/common'
 
 function UserForm() {
   const [user, setUser] = useState<UserInterface | ''>('')
