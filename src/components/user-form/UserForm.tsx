@@ -11,9 +11,9 @@ import {
   Button,
   SelectChangeEvent
 } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { users, statuses, departments, countries } from '~/dummyData'
 import { styles } from '~/components/user-form/UserForm.styles'
+import IconDropDown from '../icon-dropdown/IconDropDown'
 
 interface UserInterface {
   name: string
@@ -49,12 +49,6 @@ function UserForm() {
   }
 
   useEffect(setUsersData, [user])
-
-  const iconComponent = (_props: any) => (
-    <div style={{ position: 'relative' }}>
-      <ExpandMoreIcon {..._props} sx={styles.iconComponentStyles} />
-    </div>
-  )
 
   const onUserChange = (e: SelectChangeEvent<string>) => {
     const selectedUserName = e.target.value
@@ -125,7 +119,7 @@ const handleSaveUser = () => {
             value={user ? user.name : ''}
             onChange={onUserChange}
             sx={styles.selectStyles}
-            IconComponent={iconComponent}
+            IconComponent={IconDropDown}
           >
             {users.map((_user) => (
               <MenuItem key={_user.name} value={_user.name}>
