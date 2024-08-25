@@ -10,6 +10,12 @@
 - added dummy user's data 
 - added user data states
 - added event handlers
+# Task Create users page
+- create UserPage in pages
+- added into page filters 
+- refactor icon dropdown, replace it's from user form to separate component
+- create filters layout
+- connect layout to dummy data
 
 # React + TypeScript + Vite
 
