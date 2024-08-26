@@ -62,12 +62,15 @@ export const styles = {
   deleteButton: {
     border: '1px solid',
     borderRadius: 0,
-    marginLeft: '12px',
+    marginLeft: '12px'
   },
   boxContainer: {
     width: '100%',
     display: 'flex',
     gap: '12px',
     alignItems: 'center'
+  },
+  container: {
+    width: 'max-content'
   }
 }

@@ -100,7 +100,7 @@ const UserFilters: FC = () => {
   )
 
   return (
-    <Box>
+    <Box sx={styles.container}>
       <Typography variant='body1' sx={styles.title}>
         Please add at least 3 departments to be able to proceed next steps.
       </Typography>
