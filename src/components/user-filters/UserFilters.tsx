@@ -3,7 +3,6 @@ import {
   Box,
   Checkbox,
   FormControl,
-  Grid,
   InputLabel,
   ListItemText,
   MenuItem,
@@ -61,19 +60,39 @@ const UserFilters: FC = () => {
     items: ItemType[]
   ) => (
     <FormControl fullWidth variant='outlined'>
-      <InputLabel>{label}</InputLabel>
+      <InputLabel
+        sx={{
+          ...styles.inputLabel,
+          '&.MuiInputLabel-shrink': {
+            display: value.length > 0 ? 'none' : 'block'
+          }
+        }}
+      >
+        {label}
+      </InputLabel>
       <Select
         multiple
         value={value}
         onChange={(event) => handleSelectChange(event, onChange)}
-        renderValue={(selected) => selected.join(', ')}
+        renderValue={(selected) =>
+          selected.length > 0 ? `Selected(${selected.length})` : ''
+        }
         IconComponent={IconDropDown}
         disabled={label !== 'Department' && areOtherFiltersDisabled}
+        sx={styles.select}
+        MenuProps={{
+          PaperProps: {
+            sx: styles.menuPaper
+          }
+        }}
       >
         {items.map((item) => (
           <MenuItem key={item.value} value={item.value}>
-            <Checkbox checked={value.indexOf(item.value) > -1} />
-            <ListItemText primary={item.name} />
+            <Checkbox
+              checked={value.indexOf(item.value) > -1}
+              sx={styles.checkbox}
+            />
+            <ListItemText primary={item.name} sx={styles.listItemText} />
           </MenuItem>
         ))}
       </Select>
@@ -85,39 +104,35 @@ const UserFilters: FC = () => {
       <Typography variant='body1' sx={styles.title}>
         Please add at least 3 departments to be able to proceed next steps.
       </Typography>
-
-      <Box
-        sx={{ width: '100%', display: 'flex', gap: 2, alignItems: 'center' }}
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
-            {renderSelect(
-              'Department',
-              selectedDepartments,
-              setSelectedDepartments,
-              departments
-            )}
-          </Grid>
-          <Grid item xs={4}>
-            {renderSelect(
-              'Status',
-              selectedStatuses,
-              setSelectedStatuses,
-              statuses
-            )}
-          </Grid>
-          <Grid item xs={4}>
-            {renderSelect(
-              'Country',
-              selectedCountries,
-              setSelectedCountries,
-              countries
-            )}
-          </Grid>
-        </Grid>
-        <IconButton onClick={handleDeleteAll} aria-label='delete' size='large'>
-          <DeleteOutlineIcon />
-        </IconButton>
+      <Box sx={styles.boxContainer}>
+        <Box sx={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          {renderSelect(
+            'Department',
+            selectedDepartments,
+            setSelectedDepartments,
+            departments
+          )}
+          {renderSelect(
+            'Status',
+            selectedStatuses,
+            setSelectedStatuses,
+            statuses
+          )}
+          {renderSelect(
+            'Country',
+            selectedCountries,
+            setSelectedCountries,
+            countries
+          )}
+          <IconButton
+            sx={styles.deleteButton}
+            onClick={handleDeleteAll}
+            aria-label='delete'
+            size='large'
+          >
+            <DeleteOutlineIcon />
+          </IconButton>
+        </Box>
       </Box>
     </Box>
   )
