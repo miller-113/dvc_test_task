@@ -1,4 +1,4 @@
-interface Item {
+export interface Item {
   name: string
   value: string
 }
@@ -15,4 +15,9 @@ export type UserItemProps = {
   country: string
   status: string
   onDelete: () => void
+}
+
+export interface UsersTableProps {
+  users: UserInterface[]
+  onDelete: (name: string) => void
 }

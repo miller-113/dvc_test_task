@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useEffect, Dispatch, SetStateAction, useState } from 'react'
 import {
   Box,
   Checkbox,
@@ -15,22 +15,32 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 
 import { styles } from '~/components/user-filters/UserFilters.styles'
 import { countries, departments, statuses } from '~/dummyData'
-import IconDropDown from '../icon-dropdown/IconDropDown'
+import IconDropDown from '~/components/icon-dropdown/IconDropDown'
 
-type ItemType = {
-  name: string
-  value: string
+import { Item } from '~/types/common'
+
+interface UserFiltersProps {
+  selectedDepartments: string[]
+  setSelectedDepartments: Dispatch<SetStateAction<string[]>>
+  selectedStatuses: string[]
+  setSelectedStatuses: Dispatch<SetStateAction<string[]>>
+  selectedCountries: string[]
+  setSelectedCountries: Dispatch<SetStateAction<string[]>>
 }
 
-const UserFilters: FC = () => {
-  const [selectedDepartments, setSelectedDepartments] = useState<string[]>([])
-  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
+const UserFilters: FC<UserFiltersProps> = ({
+  selectedDepartments,
+  setSelectedDepartments,
+  selectedStatuses,
+  setSelectedStatuses,
+  selectedCountries,
+  setSelectedCountries
+}) => {
   const [areOtherFiltersDisabled, setAreOtherFiltersDisabled] = useState(true)
 
   const handleSelectChange = (
     event: SelectChangeEvent<string[]>,
-    setSelected: React.Dispatch<React.SetStateAction<string[]>>
+    setSelected: Dispatch<SetStateAction<string[]>>
   ) => {
     const { value } = event.target
     setSelected(typeof value === 'string' ? value.split(',') : value)
@@ -56,8 +66,8 @@ const UserFilters: FC = () => {
   const renderSelect = (
     label: string,
     value: string[],
-    onChange: React.Dispatch<React.SetStateAction<string[]>>,
-    items: ItemType[]
+    onChange: Dispatch<SetStateAction<string[]>>,
+    items: Item[]
   ) => (
     <FormControl fullWidth variant='outlined'>
       <InputLabel

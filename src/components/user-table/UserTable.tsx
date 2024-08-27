@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import {
   Table,
   TableBody,
@@ -6,23 +6,15 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
+  Paper
 } from '@mui/material'
 
 import UserItem from '~/components/user-item/UserItem'
-import { users as initialUsers } from '~/dummyData'
+import { styles } from '~/components/user-table/UserTable.styles'
 
-import { styles } from './UserTable.styles'
+import { UsersTableProps } from '~/types/common'
 
-import { UserInterface } from '~/types/common'
-
-const UsersTable: FC = () => {
-  const [users, setUsers] = useState<UserInterface[]>(initialUsers)
-
-  const handleDelete = (name: string) => {
-    setUsers(users.filter((user) => user.name !== name))
-  }
-
+const UsersTable: FC<UsersTableProps> = ({ users, onDelete }) => {
   return (
     <TableContainer component={Paper} sx={styles.tableContainer}>
       <Table sx={{ minWidth: 650 }} aria-label='users table'>
@@ -39,12 +31,16 @@ const UsersTable: FC = () => {
             <TableCell
               sx={{ ...styles.columnTitle, ...styles.middleItemCell }}
               colSpan={2}
-            ></TableCell>{' '}
+            ></TableCell>
             <TableCell sx={{ ...styles.columnTitle, ...styles.middleItemCell }}>
               Country
             </TableCell>
             <TableCell
-              sx={{ ...styles.columnTitle, ...styles.firstLastItemCell, pl: '10px' }}
+              sx={{
+                ...styles.columnTitle,
+                ...styles.firstLastItemCell,
+                pl: '10px'
+              }}
             >
               Status
             </TableCell>
@@ -59,7 +55,7 @@ const UsersTable: FC = () => {
                 department={user.department.name}
                 country={user.country.name}
                 status={user.status.name}
-                onDelete={() => handleDelete(user.name)}
+                onDelete={() => onDelete(user.name)}
               />
             </TableRow>
           ))}
