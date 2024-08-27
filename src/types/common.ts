@@ -21,3 +21,8 @@ export interface UsersTableProps {
   users: UserInterface[]
   onDelete: (name: string) => void
 }
+
+export type AddUserModalProps = {
+  isOpen: boolean
+  onClose: () => void
+}
