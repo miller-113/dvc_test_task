@@ -28,7 +28,8 @@
 - add filter logic between users
 - added sort logic in select; when option is selected
 # Task Update user pop up window
-
+- added styles
+- upd types
 
 # React + TypeScript + Vite
 
