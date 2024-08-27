@@ -18,12 +18,6 @@ export const styles = {
     borderRadius: 'unset',
     height: '48px'
   },
-  iconComponentStyles: {
-    fontSize: '20px',
-    marginRight: '12px',
-    verticalAlign: 'middle',
-    cursor: 'pointer'
-  },
   buttonContainerStyles: {
     display: 'flex',
     justifyContent: 'flex-end',

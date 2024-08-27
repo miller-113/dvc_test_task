@@ -7,7 +7,6 @@ import { styles } from '~/pages/edit-user/EditUser.styles'
 const EditUser = () => {
   return (
     <Container sx={styles.container}>
-      2
       <Typography variant='h2' sx={styles.title}>
         EDIT USER
       </Typography>

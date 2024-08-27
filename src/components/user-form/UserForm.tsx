@@ -11,25 +11,11 @@ import {
   Button,
   SelectChangeEvent
 } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { users, statuses, departments, countries } from '~/dummyData'
 import { styles } from '~/components/user-form/UserForm.styles'
+import IconDropDown from '../icon-dropdown/IconDropDown'
 
-interface UserInterface {
-  name: string
-  status: {
-    name: string
-    value: string
-  }
-  department: {
-    name: string
-    value: string
-  }
-  country: {
-    name: string
-    value: string
-  }
-}
+import { UserInterface } from '~/types/common'
 
 function UserForm() {
   const [user, setUser] = useState<UserInterface | ''>('')
@@ -49,12 +35,6 @@ function UserForm() {
   }
 
   useEffect(setUsersData, [user])
-
-  const iconComponent = (_props: any) => (
-    <div style={{ position: 'relative' }}>
-      <ExpandMoreIcon {..._props} sx={styles.iconComponentStyles} />
-    </div>
-  )
 
   const onUserChange = (e: SelectChangeEvent<string>) => {
     const selectedUserName = e.target.value
@@ -125,7 +105,7 @@ const handleSaveUser = () => {
             value={user ? user.name : ''}
             onChange={onUserChange}
             sx={styles.selectStyles}
-            IconComponent={iconComponent}
+            IconComponent={IconDropDown}
           >
             {users.map((_user) => (
               <MenuItem key={_user.name} value={_user.name}>
@@ -168,7 +148,7 @@ const handleSaveUser = () => {
               value={country}
               sx={styles.selectStyles}
               onChange={onSelectChange}
-              IconComponent={iconComponent}
+              IconComponent={IconDropDown}
             >
               {countries.map((_country) => (
                 <MenuItem key={_country.value} value={_country.value}>
@@ -190,7 +170,7 @@ const handleSaveUser = () => {
               value={department}
               sx={styles.selectStyles}
               onChange={onSelectChange}
-              IconComponent={iconComponent}
+              IconComponent={IconDropDown}
             >
               {departments.map((_department) => (
                 <MenuItem key={_department.value} value={_department.value}>
@@ -211,7 +191,7 @@ const handleSaveUser = () => {
               labelId='status-label'
               value={status}
               sx={styles.selectStyles}
-              IconComponent={iconComponent}
+              IconComponent={IconDropDown}
               onChange={onSelectChange}
             >
               {statuses.map((_status) => (
