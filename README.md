@@ -16,6 +16,15 @@
 - refactor icon dropdown, replace it's from user form to separate component
 - create filters layout
 - connect layout to dummy data
+- added filter blocks if chosen less then 3 departments
+- create user's table
+- create layout
+- add styles
+- create user item Component to table
+- upd filters styles
+- create add button
+- add button into container and styled it 
+- added simple modal (like mock modal)
 
 # React + TypeScript + Vite
 

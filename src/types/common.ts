@@ -8,3 +8,11 @@ export interface UserInterface {
   department: Item
   country: Item
 }
+
+export type UserItemProps = {
+  fullName: string
+  department: string
+  country: string
+  status: string
+  onDelete: () => void
+}
