@@ -63,51 +63,65 @@ const UserFilters: FC<UserFiltersProps> = ({
     setAreOtherFiltersDisabled(true)
   }
 
+  const sortItems = (items: Item[], selectedValues: string[]): Item[] => {
+    const selectedItems = items.filter((item) =>
+      selectedValues.includes(item.value)
+    )
+    const unselectedItems = items.filter(
+      (item) => !selectedValues.includes(item.value)
+    )
+    return [...selectedItems, ...unselectedItems]
+  }
+
   const renderSelect = (
     label: string,
     value: string[],
     onChange: Dispatch<SetStateAction<string[]>>,
     items: Item[]
-  ) => (
-    <FormControl fullWidth variant='outlined'>
-      <InputLabel
-        sx={{
-          ...styles.inputLabel,
-          '&.MuiInputLabel-shrink': {
-            display: value.length > 0 ? 'none' : 'block'
+  ) => {
+    const sortedItems = sortItems(items, value)
+
+    return (
+      <FormControl fullWidth variant='outlined'>
+        <InputLabel
+          sx={{
+            ...styles.inputLabel,
+            '&.MuiInputLabel-shrink': {
+              display: value.length > 0 ? 'none' : 'block'
+            }
+          }}
+        >
+          {label}
+        </InputLabel>
+        <Select
+          multiple
+          value={value}
+          onChange={(event) => handleSelectChange(event, onChange)}
+          renderValue={(selected) =>
+            selected.length > 0 ? `Selected(${selected.length})` : ''
           }
-        }}
-      >
-        {label}
-      </InputLabel>
-      <Select
-        multiple
-        value={value}
-        onChange={(event) => handleSelectChange(event, onChange)}
-        renderValue={(selected) =>
-          selected.length > 0 ? `Selected(${selected.length})` : ''
-        }
-        IconComponent={IconDropDown}
-        disabled={label !== 'Department' && areOtherFiltersDisabled}
-        sx={styles.select}
-        MenuProps={{
-          PaperProps: {
-            sx: styles.menuPaper
-          }
-        }}
-      >
-        {items.map((item) => (
-          <MenuItem key={item.value} value={item.value}>
-            <Checkbox
-              checked={value.indexOf(item.value) > -1}
-              sx={styles.checkbox}
-            />
-            <ListItemText primary={item.name} sx={styles.listItemText} />
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-  )
+          IconComponent={IconDropDown}
+          disabled={label !== 'Department' && areOtherFiltersDisabled}
+          sx={styles.select}
+          MenuProps={{
+            PaperProps: {
+              sx: styles.menuPaper
+            }
+          }}
+        >
+          {sortedItems.map((item) => (
+            <MenuItem key={item.value} value={item.value}>
+              <Checkbox
+                checked={value.indexOf(item.value) > -1}
+                sx={styles.checkbox}
+              />
+              <ListItemText primary={item.name} sx={styles.listItemText} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    )
+  }
 
   return (
     <Box sx={styles.container}>

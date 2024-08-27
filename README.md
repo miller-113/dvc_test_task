@@ -25,6 +25,7 @@
 - create add button
 - add button into container and styled it 
 - added simple modal (like mock modal)
+- add filter logic between users
 
 # React + TypeScript + Vite
 
