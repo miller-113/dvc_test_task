@@ -1,38 +1,53 @@
+# Task: Create Edit Page
+1. **Header Component**:
+   - Created the `Header` component in the `containers` directory.
+   - Added header layout and styled the buttons.
 
-# Task Create edit page
-- create header component in containers
-- add header layout
-- add buttons layout and styles
-- create edit page in pages
-- create userForm component in components
-- create page container(box with margin and padding)
-- create HOK for box container
-- added dummy user's data 
-- added user data states
-- added event handlers
-# Task Create users page
-- create UserPage in pages
-- added into page filters 
-- refactor icon dropdown, replace it's from user form to separate component
-- create filters layout
-- connect layout to dummy data
-- added filter blocks if chosen less then 3 departments
-- create user's table
-- create layout
-- add styles
-- create user item Component to table
-- upd filters styles
-- create add button
-- add button into container and styled it 
-- added simple modal (like mock modal)
-- add filter logic between users
-- added sort logic in select; when option is selected
-# Task Update user pop up window
-- added styles
-- upd types
-# Connect to local storage
-- add hook user hook for getting data from local storage
-- upd logic getting user in userPage and EditUser components
+2. **Edit Page**:
+   - Developed the `EditUser` page in the `pages` directory.
+   - Created the `UserForm` component within `components`.
+   - Implemented a page container (a `Box` with margin and padding).
+   - Developed a Higher-Order Component (HOC) for the container.
+   - Added dummy user data and managed user state.
+   - Set up event handlers for form interactions.
+
+## Task: Create Users Page
+1. **UserPage Component**:
+   - Created the `UserPage` component in the `pages` directory.
+   - Incorporated user filters into the page.
+   - Refactored the icon dropdown, extracting it into a separate component.
+   - Designed the filters layout and connected it to dummy data.
+   - Implemented conditional filter blocks for when fewer than three departments are selected.
+
+2. **Users Table**:
+   - Developed the user table component.
+   - Created a layout and applied styles.
+   - Created a `UserItem` component for the table.
+   - Updated filter styles.
+
+3. **Additional Features**:
+   - Added an "Add User" button, placed it in a container, and styled it.
+   - Integrated a simple modal for adding users.
+   - Implemented user filtering logic.
+   - Added sorting logic for the dropdown select options.
+
+## Task: Update User Pop-up Window
+1. **Styling**:
+   - Applied additional styles to the user pop-up window.
+
+2. **TypeScript Types**:
+   - Updated TypeScript types for better type safety.
+
+## Task: Connect to Local Storage
+1. **Local Storage Hook**:
+   - Created a custom hook for managing user data in local storage.
+   - Updated the logic in the `UserPage` and `EditUser` components to fetch data from local storage.
+
+## Task: Add Routes
+1. **Routing**:
+   - Implemented routing to navigate between pages.
+   - Made small fixes to the container layout for better alignment.
+"""
 
 # React + TypeScript + Vite
 
