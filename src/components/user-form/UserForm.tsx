@@ -11,13 +11,17 @@ import {
   Button,
   SelectChangeEvent
 } from '@mui/material'
-import { users, statuses, departments, countries } from '~/dummyData'
+import IconDropDown from '~/components/icon-dropdown/IconDropDown'
+
+import useUsers from '~/hooks/use-users'
+
+import { statuses, departments, countries } from '~/dummyData'
 import { styles } from '~/components/user-form/UserForm.styles'
-import IconDropDown from '../icon-dropdown/IconDropDown'
 
 import { UserInterface } from '~/types/common'
 
 function UserForm() {
+  const [users] = useUsers()
   const [user, setUser] = useState<UserInterface | ''>('')
   const [userName, setUserName] = useState('')
   const [country, setCountry] = useState('')
