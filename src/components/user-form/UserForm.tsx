@@ -21,7 +21,7 @@ import { styles } from '~/components/user-form/UserForm.styles'
 import { UserInterface } from '~/types/common'
 
 function UserForm() {
-  const [users] = useUsers()
+  const [users, setUsers] = useUsers()
   const [user, setUser] = useState<UserInterface | ''>('')
   const [userName, setUserName] = useState('')
   const [country, setCountry] = useState('')
@@ -77,24 +77,38 @@ function UserForm() {
     setUsersData()
   }
 
-const handleSaveUser = () => {
-  setIsChanged(false)
+  const handleSaveUser = () => {
+    setIsChanged(false)
 
-  if (user) {
-    const userIndex = users.findIndex((_user) => _user.name === user.name)
+    setUsers((prevState) => {
+      if (user) {
+        const userIndex = prevState.findIndex(
+          (_user) => _user.name === user.name
+        )
 
-    if (userIndex !== -1) {
-      users[userIndex] = {
-        ...users[userIndex],
-        name: userName || user.name,
-        country: countries.find((c) => c.value === country) || user.country,
-        department:
-          departments.find((d) => d.value === department) || user.department,
-        status: statuses.find((s) => s.value === status) || user.status
+        if (userIndex !== -1) {
+          const updatedUser = {
+            ...prevState[userIndex],
+            name: userName || user.name,
+            country: countries.find((c) => c.value === country) || user.country,
+            department:
+              departments.find((d) => d.value === department) ||
+              user.department,
+            status: statuses.find((s) => s.value === status) || user.status
+          }
+
+          const updatedUsers = [
+            ...prevState.slice(0, userIndex),
+            updatedUser,
+            ...prevState.slice(userIndex + 1)
+          ]
+
+          return updatedUsers
+        }
       }
-    }
+      return prevState
+    })
   }
-}
 
   return (
     <Box sx={styles.boxStyles}>
