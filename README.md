@@ -30,6 +30,9 @@
 # Task Update user pop up window
 - added styles
 - upd types
+# Connect to local storage
+- add hook user hook for getting data from local storage
+- upd logic getting user in userPage and EditUser components
 
 # React + TypeScript + Vite
 

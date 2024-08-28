@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export interface Item {
   name: string
   value: string
@@ -25,4 +27,6 @@ export interface UsersTableProps {
 export type AddUserModalProps = {
   isOpen: boolean
   onClose: () => void
+  users: UserInterface[]
+  onSaveUser: Dispatch<SetStateAction<UserInterface[]>>
 }

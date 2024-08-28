@@ -1,22 +1,24 @@
 import React, { useState, useMemo } from 'react'
 import { Container, Typography, Button, Box } from '@mui/material'
+
 import UserFilters from '~/components/user-filters/UserFilters'
 import UsersTable from '~/components/user-table/UserTable'
 import AddUserModal from '~/components/add-user-modal/AddUserModal'
+
 import withPageContainer from '~/hoc/withPageContainer'
+import useUsers from '~/hooks/use-users'
 
 import { styles } from '~/pages/user-page/UserPage.styles'
-
-import { users as initialUsers } from '~/dummyData'
 
 import { UserInterface } from '~/types/common'
 
 const UserPage: React.FC = () => {
+  const [users, setUsers] = useUsers()
+
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([])
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
-  const [users, setUsers] = useState<UserInterface[]>(initialUsers)
 
   const handleOpenModal = () => {
     setIsModalOpen(true)
@@ -27,8 +29,8 @@ const UserPage: React.FC = () => {
   }
 
   const handleDeleteUser = (name: string) => {
-    // TODO: connect to local storage
-    setUsers(users.filter((user) => user.name !== name))
+    const updatedUsers = users.filter((user) => user.name !== name)
+    setUsers(updatedUsers)
   }
 
   const filteredUsers: UserInterface[] = useMemo(() => {
@@ -67,7 +69,7 @@ const UserPage: React.FC = () => {
         </Button>
       </Box>
       <UsersTable users={filteredUsers} onDelete={handleDeleteUser} />
-      <AddUserModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <AddUserModal isOpen={isModalOpen} onClose={handleCloseModal} onSaveUser={setUsers} users={users}/>
     </Container>
   )
 }
